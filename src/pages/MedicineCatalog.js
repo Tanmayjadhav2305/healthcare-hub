@@ -37,7 +37,7 @@ import {
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { useCart } from '../context/CartContext';
+import { useCart } from '../contexts/CartContext';
 
 const mockMedicines = [
   {
