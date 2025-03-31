@@ -251,13 +251,14 @@ export const medicines = [
     prescriptionRequired: false,
     rating: 4.8,
     reviews: 256,
+    uses: ['Fever', 'Pain Relief', 'Headache', 'Body Aches']
   },
   {
     id: 2,
     name: 'Amoxicillin',
     description: 'Broad-spectrum antibiotic',
     price: 12.99,
-    image: 'https://images.unsplash.com/photo-1585435557343-3b092031a831?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
     category: 'INFECTION MEDICINES',
     manufacturer: 'Cipla Ltd',
     dosage: '500mg',
@@ -269,13 +270,14 @@ export const medicines = [
     prescriptionRequired: true,
     rating: 4.2,
     reviews: 80,
+    uses: ['Bacterial Infections', 'UTI', 'Respiratory Infections', 'Skin Infections']
   },
   {
     id: 3,
     name: 'Omeprazole',
     description: 'Acid reflux medication',
     price: 14.99,
-    image: 'https://images.unsplash.com/photo-1585435557343-3b092031a831?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
     category: 'STOMACH MEDICINES',
     manufacturer: 'Dr. Reddy\'s Laboratories Ltd',
     dosage: '20mg',
@@ -287,13 +289,14 @@ export const medicines = [
     prescriptionRequired: true,
     rating: 4.6,
     reviews: 160,
+    uses: ['Acid Reflux', 'GERD', 'Stomach Ulcers', 'Heartburn']
   },
   {
     id: 4,
     name: 'Metformin',
     description: 'Diabetes medication',
     price: 11.99,
-    image: 'https://images.unsplash.com/photo-1585435557343-3b092031a831?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.unsplash.com/photo-1631549916768-4119b2e5f926?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
     category: 'DIABETES MEDICINES',
     manufacturer: 'Aurobindo Pharma Ltd',
     dosage: '500mg',
@@ -305,13 +308,14 @@ export const medicines = [
     prescriptionRequired: true,
     rating: 4.1,
     reviews: 96,
+    uses: ['Type 2 Diabetes', 'Blood Sugar Control', 'Insulin Resistance']
   },
   {
     id: 5,
     name: 'Vitamin D3',
     description: 'Vitamin D supplement',
     price: 6.99,
-    image: 'https://images.unsplash.com/photo-1585435557343-3b092031a831?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.unsplash.com/photo-1616671276441-2f2c277b8bf6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
     category: 'VITAMINS & SUPPLEMENTS',
     manufacturer: 'Lupin Ltd',
     dosage: '1000 IU',
@@ -323,13 +327,14 @@ export const medicines = [
     prescriptionRequired: false,
     rating: 4.0,
     reviews: 64,
+    uses: ['Vitamin D Deficiency', 'Bone Health', 'Immune System Support']
   },
   {
     id: 6,
     name: 'Amlodipine',
     description: 'Blood pressure medication',
     price: 13.99,
-    image: 'https://images.unsplash.com/photo-1585435557343-3b092031a831?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.unsplash.com/photo-1603807008857-ad66b70431aa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
     category: 'HEART & BLOOD PRESSURE MEDICINES',
     manufacturer: 'Torrent Pharmaceuticals Ltd',
     dosage: '5mg',
@@ -341,13 +346,14 @@ export const medicines = [
     prescriptionRequired: true,
     rating: 4.3,
     reviews: 128,
+    uses: ['High Blood Pressure', 'Angina', 'Chest Pain']
   },
   {
     id: 7,
     name: 'Cetirizine',
     description: 'Antihistamine for allergies',
     price: 7.99,
-    image: 'https://images.unsplash.com/photo-1585435557343-3b092031a831?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.unsplash.com/photo-1576073719676-aa95576db207?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
     category: 'SKIN CARE MEDICINES',
     manufacturer: 'Cadila Healthcare Ltd',
     dosage: '10mg',
@@ -359,13 +365,14 @@ export const medicines = [
     prescriptionRequired: false,
     rating: 4.4,
     reviews: 128,
+    uses: ['Allergies', 'Hay Fever', 'Hives', 'Itching']
   },
   {
     id: 8,
     name: 'Vitamin C',
     description: 'Immune system support supplement',
     price: 9.99,
-    image: 'https://images.unsplash.com/photo-1585435557343-3b092031a831?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.unsplash.com/photo-1616671276441-2f2c277b8bf6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
     category: 'VITAMINS & SUPPLEMENTS',
     manufacturer: 'Glenmark Pharmaceuticals Ltd',
     dosage: '500mg',
@@ -377,13 +384,14 @@ export const medicines = [
     prescriptionRequired: false,
     rating: 4.3,
     reviews: 128,
+    uses: ['Immune System Support', 'Antioxidant', 'Vitamin C Deficiency']
   },
   {
     id: 9,
     name: 'Zinc Supplements',
     description: 'Immune system booster',
     price: 8.99,
-    image: 'https://images.unsplash.com/photo-1585435557343-3b092031a831?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.unsplash.com/photo-1616671276441-2f2c277b8bf6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
     category: 'VITAMINS & SUPPLEMENTS',
     manufacturer: 'Mankind Pharma Ltd',
     dosage: '15mg',
@@ -395,13 +403,14 @@ export const medicines = [
     prescriptionRequired: false,
     rating: 4.5,
     reviews: 128,
+    uses: ['Immune System Support', 'Zinc Deficiency', 'Wound Healing']
   },
   {
     id: 10,
     name: 'Lisinopril',
     description: 'ACE inhibitor for blood pressure',
     price: 16.99,
-    image: 'https://images.unsplash.com/photo-1585435557343-3b092031a831?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    image: 'https://images.unsplash.com/photo-1603807008857-ad66b70431aa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
     category: 'HEART & BLOOD PRESSURE MEDICINES',
     manufacturer: 'Intas Pharmaceuticals Ltd',
     dosage: '10mg',
@@ -413,5 +422,6 @@ export const medicines = [
     prescriptionRequired: true,
     rating: 4.0,
     reviews: 64,
-  },
+    uses: ['High Blood Pressure', 'Heart Failure', 'Kidney Protection']
+  }
 ]; 

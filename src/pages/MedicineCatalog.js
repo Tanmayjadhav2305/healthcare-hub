@@ -38,7 +38,7 @@ import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useCart } from '../contexts/CartContext';
-import { mockMedicines, categories } from '../data/medicines';
+import { medicines, categories } from '../data/medicines';
 
 const MedicineCatalog = () => {
   const navigate = useNavigate();
@@ -49,9 +49,9 @@ const MedicineCatalog = () => {
   const [sortBy, setSortBy] = useState('name');
   const [searchType, setSearchType] = useState('medicine');
   const [tabValue, setTabValue] = useState(0);
-  const [medicines, setMedicines] = useState(mockMedicines);
+  const [medicinesList, setMedicinesList] = useState(medicines);
 
-  const filteredMedicines = medicines.filter((medicine) => {
+  const filteredMedicines = medicinesList.filter((medicine) => {
     const matchesSearch = searchType === 'medicine'
       ? medicine.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         medicine.description.toLowerCase().includes(searchQuery.toLowerCase())
@@ -84,7 +84,7 @@ const MedicineCatalog = () => {
 
   const handleFavoriteToggle = (medicineId, e) => {
     e.stopPropagation();
-    setMedicines(prevMedicines => 
+    setMedicinesList(prevMedicines => 
       prevMedicines.map(medicine => 
         medicine.id === medicineId 
           ? { ...medicine, isFavorite: !medicine.isFavorite }
@@ -144,7 +144,7 @@ const MedicineCatalog = () => {
       </Box>
 
       {/* Medicine Grid */}
-      <Grid container spacing={4}>
+      <Grid container spacing={3}>
         {sortedMedicines.map((medicine) => (
           <Grid item key={medicine.id} xs={12} sm={6} md={4}>
             <Card
@@ -196,28 +196,33 @@ const MedicineCatalog = () => {
                 <Typography gutterBottom variant="h6" component="h2">
                   {medicine.name}
                 </Typography>
-                <Typography variant="body2" color="text.secondary" paragraph>
+                <Typography variant="body2" color="text.secondary" gutterBottom>
                   {medicine.description}
                 </Typography>
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                  <Rating value={medicine.rating} precision={0.5} readOnly size="small" />
+                  <Rating value={medicine.rating} precision={0.1} readOnly size="small" />
                   <Typography variant="body2" color="text.secondary" sx={{ ml: 1 }}>
-                    ({medicine.reviews})
+                    ({medicine.reviews} reviews)
                   </Typography>
                 </Box>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-                  <Typography variant="h6" color="primary">
-                    ${medicine.price}
-                  </Typography>
+                <Typography variant="h6" color="primary" gutterBottom>
+                  ${medicine.price}
+                </Typography>
+                <Box sx={{ display: 'flex', gap: 1, mb: 2 }}>
+                  <Chip
+                    label={medicine.category}
+                    size="small"
+                    color="primary"
+                    variant="outlined"
+                  />
                   <Chip
                     label={medicine.availability}
-                    color={medicine.availability === 'In Stock' ? 'success' : 'error'}
                     size="small"
+                    color={medicine.availability === 'In Stock' ? 'success' : 'error'}
                   />
                 </Box>
                 <Button
                   variant="contained"
-                  color="primary"
                   fullWidth
                   onClick={(e) => {
                     e.stopPropagation();
@@ -234,49 +239,37 @@ const MedicineCatalog = () => {
       </Grid>
 
       {/* Filter Dialog */}
-      <Dialog open={filterDialogOpen} onClose={() => setFilterDialogOpen(false)} maxWidth="sm" fullWidth>
+      <Dialog open={filterDialogOpen} onClose={() => setFilterDialogOpen(false)}>
         <DialogTitle>Filter Medicines</DialogTitle>
         <DialogContent>
-          <Box sx={{ mt: 2 }}>
-            <Typography variant="subtitle1" gutterBottom>
-              Category
-            </Typography>
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-              {categories.map((category) => (
-                <Chip
-                  key={category}
-                  label={category}
-                  onClick={() => setSelectedCategory(category)}
-                  color={selectedCategory === category ? 'primary' : 'default'}
-                />
-              ))}
-            </Box>
-            <Divider sx={{ my: 2 }} />
-            <Typography variant="subtitle1" gutterBottom>
-              Sort By
-            </Typography>
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-              <Chip
-                label="Name"
-                onClick={() => setSortBy('name')}
-                color={sortBy === 'name' ? 'primary' : 'default'}
-              />
-              <Chip
-                label="Price: Low to High"
-                onClick={() => setSortBy('price-asc')}
-                color={sortBy === 'price-asc' ? 'primary' : 'default'}
-              />
-              <Chip
-                label="Price: High to Low"
-                onClick={() => setSortBy('price-desc')}
-                color={sortBy === 'price-desc' ? 'primary' : 'default'}
-              />
-              <Chip
-                label="Rating"
-                onClick={() => setSortBy('rating')}
-                color={sortBy === 'rating' ? 'primary' : 'default'}
-              />
-            </Box>
+          <Box sx={{ pt: 2 }}>
+            <FormControl fullWidth sx={{ mb: 2 }}>
+              <InputLabel>Category</InputLabel>
+              <Select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                label="Category"
+              >
+                {categories.map((category) => (
+                  <MenuItem key={category} value={category}>
+                    {category}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl fullWidth>
+              <InputLabel>Sort By</InputLabel>
+              <Select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                label="Sort By"
+              >
+                <MenuItem value="name">Name (A-Z)</MenuItem>
+                <MenuItem value="price-asc">Price (Low to High)</MenuItem>
+                <MenuItem value="price-desc">Price (High to Low)</MenuItem>
+                <MenuItem value="rating">Rating</MenuItem>
+              </Select>
+            </FormControl>
           </Box>
         </DialogContent>
         <DialogActions>
