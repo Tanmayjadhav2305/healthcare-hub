@@ -22,11 +22,11 @@ import {
   Remove as RemoveIcon,
   ShoppingCart as CartIcon,
 } from '@mui/icons-material';
-import { useCart } from '../context/CartContext';
+import { useCart } from '../contexts/CartContext';
 import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
-  const { cart, removeFromCart, updateQuantity, getTotal } = useCart();
+  const { cartItems, removeFromCart, updateQuantity, getCartTotal } = useCart();
   const navigate = useNavigate();
   const [shippingAddress, setShippingAddress] = useState({
     street: '',
@@ -36,7 +36,7 @@ const Cart = () => {
   });
 
   const handleQuantityChange = (id, change) => {
-    const item = cart.find(item => item.id === id);
+    const item = cartItems.find(item => item.id === id);
     if (item) {
       const newQuantity = Math.max(1, item.quantity + change);
       updateQuantity(id, newQuantity);
@@ -72,7 +72,7 @@ const Cart = () => {
         <Grid item xs={12} md={8}>
           <Card>
             <CardContent>
-              {cart.length === 0 ? (
+              {cartItems.length === 0 ? (
                 <Box
                   sx={{
                     display: 'flex',
@@ -96,7 +96,7 @@ const Cart = () => {
                 </Box>
               ) : (
                 <List>
-                  {cart.map((item) => (
+                  {cartItems.map((item) => (
                     <React.Fragment key={item.id}>
                       <ListItem>
                         <CardMedia
@@ -152,13 +152,13 @@ const Cart = () => {
               </Typography>
               <Box sx={{ my: 2 }}>
                 <Typography variant="body1">
-                  Subtotal: ${getTotal().toFixed(2)}
+                  Subtotal: ${getCartTotal().toFixed(2)}
                 </Typography>
                 <Typography variant="body1">
                   Shipping: $5.00
                 </Typography>
                 <Typography variant="h6" sx={{ mt: 1 }}>
-                  Total: ${(getTotal() + 5).toFixed(2)}
+                  Total: ${(getCartTotal() + 5).toFixed(2)}
                 </Typography>
               </Box>
               <Button
@@ -166,7 +166,7 @@ const Cart = () => {
                 color="primary"
                 fullWidth
                 onClick={handleCheckout}
-                disabled={cart.length === 0}
+                disabled={cartItems.length === 0}
               >
                 Proceed to Checkout
               </Button>
