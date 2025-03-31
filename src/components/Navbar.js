@@ -36,7 +36,7 @@ const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, logout } = useAuth();
-  const { cart } = useCart();
+  const { cartItems } = useCart();
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -95,8 +95,8 @@ const Navbar = () => {
       <List>
         {menuItems.map((item) => (
           <ListItem
-            button
             key={item.text}
+            button
             component={RouterLink}
             to={item.path}
             onClick={handleMobileMenuToggle}
@@ -105,19 +105,45 @@ const Navbar = () => {
           </ListItem>
         ))}
         <Divider />
+        <ListItem
+          button
+          component={RouterLink}
+          to="/cart"
+          onClick={handleMobileMenuToggle}
+        >
+          <ListItemIcon>
+            <Badge badgeContent={cartItems.length} color="secondary">
+              <ShoppingCart />
+            </Badge>
+          </ListItemIcon>
+          <ListItemText primary="Cart" />
+        </ListItem>
         {user ? (
-          userMenuItems.map((item) => (
+          <>
             <ListItem
               button
-              key={item.text}
-              component={item.onClick ? 'div' : RouterLink}
-              to={item.path}
-              onClick={item.onClick || handleMobileMenuToggle}
+              component={RouterLink}
+              to="/profile"
+              onClick={handleMobileMenuToggle}
             >
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
+              <ListItemIcon>
+                <Person />
+              </ListItemIcon>
+              <ListItemText primary="Profile" />
             </ListItem>
-          ))
+            <ListItem
+              button
+              onClick={() => {
+                handleLogout();
+                handleMobileMenuToggle();
+              }}
+            >
+              <ListItemIcon>
+                <ExitToApp />
+              </ListItemIcon>
+              <ListItemText primary="Logout" />
+            </ListItem>
+          </>
         ) : (
           <>
             <ListItem
@@ -126,6 +152,9 @@ const Navbar = () => {
               to="/login"
               onClick={handleMobileMenuToggle}
             >
+              <ListItemIcon>
+                <Person />
+              </ListItemIcon>
               <ListItemText primary="Login" />
             </ListItem>
             <ListItem
@@ -134,6 +163,9 @@ const Navbar = () => {
               to="/register"
               onClick={handleMobileMenuToggle}
             >
+              <ListItemIcon>
+                <Person />
+              </ListItemIcon>
               <ListItemText primary="Register" />
             </ListItem>
           </>
@@ -193,7 +225,7 @@ const Navbar = () => {
               to="/cart"
               sx={{ mr: 2 }}
             >
-              <Badge badgeContent={cart.length} color="secondary">
+              <Badge badgeContent={cartItems.length} color="secondary">
                 <ShoppingCart />
               </Badge>
             </IconButton>
@@ -202,30 +234,28 @@ const Navbar = () => {
               <>
                 <IconButton
                   color="inherit"
-                  onClick={handleMenu}
+                  component={RouterLink}
+                  to="/profile"
+                  sx={{ mr: 2 }}
                 >
                   <Person />
+                </IconButton>
+                <IconButton
+                  color="inherit"
+                  onClick={handleMenu}
+                >
+                  <ExitToApp />
                 </IconButton>
                 <Menu
                   anchorEl={anchorEl}
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  {userMenuItems.map((item) => (
-                    <MenuItem
-                      key={item.text}
-                      component={item.onClick ? 'div' : RouterLink}
-                      to={item.path}
-                      onClick={item.onClick || handleClose}
-                    >
-                      {item.icon}
-                      <Box sx={{ ml: 1 }}>{item.text}</Box>
-                    </MenuItem>
-                  ))}
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Menu>
               </>
             ) : (
-              <Box sx={{ display: 'flex', gap: 1 }}>
+              <>
                 <Button
                   color="inherit"
                   component={RouterLink}
@@ -240,7 +270,7 @@ const Navbar = () => {
                 >
                   Register
                 </Button>
-              </Box>
+              </>
             )}
           </>
         )}
