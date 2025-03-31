@@ -28,7 +28,7 @@ import {
   MedicalServices as MedicalServicesIcon,
   Edit as EditIcon,
 } from '@mui/icons-material';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 
 const Profile = () => {
   const navigate = useNavigate();

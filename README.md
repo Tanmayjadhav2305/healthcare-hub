@@ -155,3 +155,19 @@ Project Link: [https://github.com/Tanmayjadhav2305/healthcare-hub](https://githu
 - Material-UI for the component library
 - React team for the amazing framework
 - All contributors and supporters
+
+## 📝 Deployment
+
+This project is configured for deployment on Vercel.
+
+### 🔧 Environment Variables
+
+Create a `.env` file in the root directory with the following variables:
+
+```
+REACT_APP_ALLOWED_DOMAINS=*
+REACT_APP_MAX_LOGIN_ATTEMPTS=10
+REACT_APP_SESSION_TIMEOUT=7200
+REACT_APP_API_URL=http://localhost:3000
+REACT_APP_ENABLE_IP_RESTRICTION=false
+```

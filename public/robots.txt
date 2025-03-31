@@ -1,3 +1,21 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+Allow: /medicines
+Allow: /diseases
+Allow: /health-monitoring
+Allow: /medicine-catalog
+Allow: /disease-details
+Allow: /about
+Allow: /contact
+Allow: /faq
+Allow: /terms
+Allow: /privacy
+Disallow: /login
+Disallow: /register
+Disallow: /profile
+Disallow: /edit-profile
+Disallow: /doctor-dashboard
+Disallow: /patient-dashboard
+Disallow: /cart
+Disallow: /checkout

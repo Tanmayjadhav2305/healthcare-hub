@@ -38,228 +38,7 @@ import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useCart } from '../contexts/CartContext';
-
-const mockMedicines = [
-  {
-    id: 1,
-    name: 'Ciprofloxacin',
-    description: 'Antibiotic medication for bacterial infections',
-    price: 15.99,
-    image: 'https://img.freepik.com/free-photo/medical-bills-healthcare-insurance-concept_23-2149151355.jpg',
-    category: 'Antibiotics',
-    prescriptionRequired: true,
-    availability: 'In Stock',
-    rating: 4.5,
-    reviews: 128,
-    manufacturer: 'PharmaCorp',
-    uses: ['Bacterial Infections', 'UTI', 'Respiratory Infections'],
-    sideEffects: ['Nausea', 'Diarrhea', 'Headache'],
-    dosage: '500mg twice daily',
-    isFavorite: false,
-  },
-  {
-    id: 2,
-    name: 'Paracetamol',
-    description: 'Pain reliever and fever reducer',
-    price: 5.99,
-    image: 'https://img.freepik.com/free-photo/medical-bills-healthcare-insurance-concept_23-2149151355.jpg',
-    category: 'Pain Relief',
-    prescriptionRequired: false,
-    availability: 'In Stock',
-    rating: 4.8,
-    reviews: 256,
-    manufacturer: 'HealthCare Plus',
-    uses: ['Fever', 'Pain Relief', 'Headache'],
-    sideEffects: ['Liver Problems', 'Allergic Reactions'],
-    dosage: '500mg as needed',
-    isFavorite: false,
-  },
-  {
-    id: 3,
-    name: 'Amoxicillin',
-    description: 'Broad-spectrum antibiotic',
-    price: 12.99,
-    image: 'https://img.freepik.com/free-photo/medical-bills-healthcare-insurance-concept_23-2149151355.jpg',
-    category: 'Antibiotics',
-    prescriptionRequired: true,
-    availability: 'Out of Stock',
-    rating: 4.2,
-    reviews: 80,
-    manufacturer: 'HealthCare Plus',
-    uses: ['Bacterial Infections', 'UTI', 'Respiratory Infections'],
-    sideEffects: ['Nausea', 'Diarrhea', 'Headache'],
-    dosage: '500mg twice daily',
-    isFavorite: false,
-  },
-  {
-    id: 4,
-    name: 'Ibuprofen',
-    description: 'Anti-inflammatory pain reliever',
-    price: 8.99,
-    image: 'https://img.freepik.com/free-photo/medical-bills-healthcare-insurance-concept_23-2149151355.jpg',
-    category: 'Pain Relief',
-    prescriptionRequired: false,
-    availability: 'In Stock',
-    rating: 4.7,
-    reviews: 192,
-    manufacturer: 'HealthCare Plus',
-    uses: ['Fever', 'Pain Relief', 'Headache'],
-    sideEffects: ['Liver Problems', 'Allergic Reactions'],
-    dosage: '500mg as needed',
-    isFavorite: false,
-  },
-  {
-    id: 5,
-    name: 'Vitamin C',
-    description: 'Immune system support supplement',
-    price: 9.99,
-    image: 'https://img.freepik.com/free-photo/medical-bills-healthcare-insurance-concept_23-2149151355.jpg',
-    category: 'Vitamins',
-    prescriptionRequired: false,
-    availability: 'In Stock',
-    rating: 4.3,
-    reviews: 128,
-    manufacturer: 'HealthCare Plus',
-    uses: ['Immune System Support', 'Antioxidant'],
-    sideEffects: [],
-    dosage: '500mg daily',
-    isFavorite: false,
-  },
-  {
-    id: 6,
-    name: 'Omeprazole',
-    description: 'Acid reflux medication',
-    price: 14.99,
-    image: 'https://img.freepik.com/free-photo/medical-bills-healthcare-insurance-concept_23-2149151355.jpg',
-    category: 'Digestive Health',
-    prescriptionRequired: true,
-    availability: 'In Stock',
-    rating: 4.6,
-    reviews: 160,
-    manufacturer: 'HealthCare Plus',
-    uses: ['Acid Reflux', 'Gastroesophageal Reflux Disease'],
-    sideEffects: ['Headache', 'Diarrhea', 'Constipation'],
-    dosage: '20mg daily',
-    isFavorite: false,
-  },
-  {
-    id: 7,
-    name: 'Cetirizine',
-    description: 'Antihistamine for allergies',
-    price: 7.99,
-    image: 'https://img.freepik.com/free-photo/medical-bills-healthcare-insurance-concept_23-2149151355.jpg',
-    category: 'Allergy',
-    prescriptionRequired: false,
-    availability: 'In Stock',
-    rating: 4.4,
-    reviews: 128,
-    manufacturer: 'HealthCare Plus',
-    uses: ['Allergic Rhinitis', 'Urticaria'],
-    sideEffects: ['Drowsiness', 'Dry Mouth', 'Headache'],
-    dosage: '10mg daily',
-    isFavorite: false,
-  },
-  {
-    id: 8,
-    name: 'Metformin',
-    description: 'Diabetes medication',
-    price: 11.99,
-    image: 'https://img.freepik.com/free-photo/medical-bills-healthcare-insurance-concept_23-2149151355.jpg',
-    category: 'Diabetes',
-    prescriptionRequired: true,
-    availability: 'In Stock',
-    rating: 4.1,
-    reviews: 96,
-    manufacturer: 'HealthCare Plus',
-    uses: ['Type 2 Diabetes'],
-    sideEffects: ['Diarrhea', 'Nausea', 'Abdominal Pain'],
-    dosage: '500mg daily',
-    isFavorite: false,
-  },
-  {
-    id: 9,
-    name: 'Vitamin D3',
-    description: 'Vitamin D supplement',
-    price: 6.99,
-    image: 'https://img.freepik.com/free-photo/medical-bills-healthcare-insurance-concept_23-2149151355.jpg',
-    category: 'Vitamins',
-    prescriptionRequired: false,
-    availability: 'In Stock',
-    rating: 4.0,
-    reviews: 64,
-    manufacturer: 'HealthCare Plus',
-    uses: ['Bone Health', 'Immune System Support'],
-    sideEffects: [],
-    dosage: '5000IU daily',
-    isFavorite: false,
-  },
-  {
-    id: 10,
-    name: 'Amlodipine',
-    description: 'Blood pressure medication',
-    price: 13.99,
-    image: 'https://img.freepik.com/free-photo/medical-bills-healthcare-insurance-concept_23-2149151355.jpg',
-    category: 'Cardiovascular',
-    prescriptionRequired: true,
-    availability: 'In Stock',
-    rating: 4.3,
-    reviews: 128,
-    manufacturer: 'HealthCare Plus',
-    uses: ['High Blood Pressure'],
-    sideEffects: ['Edema', 'Palpitations', 'Headache'],
-    dosage: '5mg daily',
-    isFavorite: false,
-  },
-  {
-    id: 11,
-    name: 'Zinc Supplements',
-    description: 'Immune system booster',
-    price: 8.99,
-    image: 'https://img.freepik.com/free-photo/medical-bills-healthcare-insurance-concept_23-2149151355.jpg',
-    category: 'Supplements',
-    prescriptionRequired: false,
-    availability: 'In Stock',
-    rating: 4.5,
-    reviews: 128,
-    manufacturer: 'HealthCare Plus',
-    uses: ['Immune System Support', 'Antioxidant'],
-    sideEffects: [],
-    dosage: '15mg daily',
-    isFavorite: false,
-  },
-  {
-    id: 12,
-    name: 'Lisinopril',
-    description: 'ACE inhibitor for blood pressure',
-    price: 16.99,
-    image: 'https://img.freepik.com/free-photo/medical-bills-healthcare-insurance-concept_23-2149151355.jpg',
-    category: 'Cardiovascular',
-    prescriptionRequired: true,
-    availability: 'Out of Stock',
-    rating: 4.0,
-    reviews: 64,
-    manufacturer: 'HealthCare Plus',
-    uses: ['High Blood Pressure'],
-    sideEffects: ['Cough', 'Dizziness', 'Hyperkalemia'],
-    dosage: '10mg daily',
-    isFavorite: false,
-  },
-];
-
-const categories = [
-  'All',
-  'Antibiotics',
-  'Pain Relief',
-  'Vitamins',
-  'Supplements',
-  'Digestive Health',
-  'Allergy',
-  'Diabetes',
-  'Cardiovascular',
-  'Respiratory',
-  'Mental Health',
-  'Skin Care',
-];
+import { mockMedicines, categories } from '../data/medicines';
 
 const MedicineCatalog = () => {
   const navigate = useNavigate();
@@ -268,10 +47,11 @@ const MedicineCatalog = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [filterDialogOpen, setFilterDialogOpen] = useState(false);
   const [sortBy, setSortBy] = useState('name');
-  const [searchType, setSearchType] = useState('medicine'); // 'medicine' or 'disease'
+  const [searchType, setSearchType] = useState('medicine');
   const [tabValue, setTabValue] = useState(0);
+  const [medicines, setMedicines] = useState(mockMedicines);
 
-  const filteredMedicines = mockMedicines.filter((medicine) => {
+  const filteredMedicines = medicines.filter((medicine) => {
     const matchesSearch = searchType === 'medicine'
       ? medicine.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         medicine.description.toLowerCase().includes(searchQuery.toLowerCase())
@@ -295,11 +75,22 @@ const MedicineCatalog = () => {
   });
 
   const handleMedicineClick = (medicineId) => {
-    navigate(`/medicine/${medicineId}`);
+    navigate(`/medicines/${medicineId}`);
   };
 
   const handleAddToCart = (medicine) => {
     addToCart(medicine);
+  };
+
+  const handleFavoriteToggle = (medicineId, e) => {
+    e.stopPropagation();
+    setMedicines(prevMedicines => 
+      prevMedicines.map(medicine => 
+        medicine.id === medicineId 
+          ? { ...medicine, isFavorite: !medicine.isFavorite }
+          : medicine
+      )
+    );
   };
 
   const handleTabChange = (event, newValue) => {
@@ -396,10 +187,7 @@ const MedicineCatalog = () => {
                       backgroundColor: 'rgba(255, 255, 255, 0.9)',
                     },
                   }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    // Handle favorite toggle
-                  }}
+                  onClick={(e) => handleFavoriteToggle(medicine.id, e)}
                 >
                   {medicine.isFavorite ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />}
                 </IconButton>

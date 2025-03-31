@@ -17,7 +17,7 @@ import {
   Edit as EditIcon,
   PhotoCamera as PhotoCameraIcon,
 } from '@mui/icons-material';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 
 const EditProfile = () => {
   const navigate = useNavigate();

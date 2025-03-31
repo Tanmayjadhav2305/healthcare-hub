@@ -30,7 +30,7 @@ import {
   MedicalServices as MedicalServicesIcon,
   Assessment as AssessmentIcon,
 } from '@mui/icons-material';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 
 const DoctorDashboard = () => {
   const [openDialog, setOpenDialog] = useState(false);

@@ -32,49 +32,8 @@ import {
   Star as StarIcon,
   StarBorder as StarBorderIcon,
 } from '@mui/icons-material';
-import { useCart } from '../context/CartContext';
-
-const mockMedicine = {
-  id: 1,
-  name: 'Ciprofloxacin',
-  description: 'Ciprofloxacin is an antibiotic that belongs to the fluoroquinolone class. It works by stopping the growth of bacteria.',
-  price: 15.99,
-  image: 'https://via.placeholder.com/300',
-  manufacturer: 'PharmaCorp Inc.',
-  dosage: '500mg',
-  form: 'Tablets',
-  usage: 'Take 1 tablet twice daily with or without food',
-  sideEffects: [
-    'Nausea',
-    'Diarrhea',
-    'Headache',
-    'Dizziness',
-    'Trouble sleeping'
-  ],
-  precautions: [
-    'Take with plenty of water',
-    'Avoid dairy products within 2 hours',
-    'Complete the full course of treatment',
-    'Avoid exposure to sunlight',
-    'Inform your doctor if pregnant or breastfeeding'
-  ],
-  availability: 'In Stock',
-  prescriptionRequired: true,
-  reviews: [
-    {
-      id: 1,
-      user: 'John Doe',
-      rating: 5,
-      comment: 'Very effective for my infection. Followed the instructions and felt better within a few days.',
-    },
-    {
-      id: 2,
-      user: 'Jane Smith',
-      rating: 4,
-      comment: 'Good medication but had some mild side effects. Would recommend.',
-    },
-  ],
-};
+import { useCart } from '../contexts/CartContext';
+import { mockMedicines } from '../data/medicines';
 
 const MedicineDetails = () => {
   const { id } = useParams();
@@ -86,32 +45,31 @@ const MedicineDetails = () => {
   const [shareDialogOpen, setShareDialogOpen] = useState(false);
   const [reviewDialogOpen, setReviewDialogOpen] = useState(false);
   const [newReview, setNewReview] = useState({ rating: 5, comment: '' });
-  const [rating, setRating] = useState(0);
-  const [review, setReview] = useState('');
+
+  // Find the medicine from mockMedicines array
+  const medicine = mockMedicines.find(m => m.id === parseInt(id));
+
+  if (!medicine) {
+    return (
+      <Container>
+        <Typography variant="h5" color="error" sx={{ mt: 4 }}>
+          Medicine not found
+        </Typography>
+      </Container>
+    );
+  }
 
   const handleAddToCart = () => {
-    addToCart({ ...mockMedicine, quantity });
+    addToCart({ ...medicine, quantity });
     setShowSuccess(true);
-    navigate('/cart');
   };
 
   const handleShare = () => {
     setShareDialogOpen(true);
-    // In a real app, implement actual sharing functionality
   };
 
-  const handleAddReview = () => {
-    // In a real app, implement review submission
-    setReviewDialogOpen(false);
-    setNewReview({ rating: 5, comment: '' });
-  };
-
-  const handleSubmitReview = (e) => {
-    e.preventDefault();
-    // Here you would typically submit the review to your backend
-    console.log('Submitting review:', { rating, review });
-    setReview('');
-    setRating(0);
+  const handleFavoriteToggle = () => {
+    setIsFavorite(!isFavorite);
   };
 
   return (
@@ -123,11 +81,12 @@ const MedicineDetails = () => {
             <CardMedia
               component="img"
               height="400"
-              image={mockMedicine.image}
-              alt={mockMedicine.name}
+              image={medicine.image}
+              alt={medicine.name}
+              sx={{ objectFit: 'cover' }}
             />
             <Box sx={{ p: 2, display: 'flex', justifyContent: 'space-between' }}>
-              <IconButton onClick={() => setIsFavorite(!isFavorite)}>
+              <IconButton onClick={handleFavoriteToggle}>
                 {isFavorite ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />}
               </IconButton>
               <IconButton onClick={handleShare}>
@@ -142,11 +101,11 @@ const MedicineDetails = () => {
           <Card>
             <CardContent>
               <Typography variant="h4" gutterBottom>
-                {mockMedicine.name}
+                {medicine.name}
               </Typography>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                 <Rating
-                  value={mockMedicine.reviews.length > 0 ? mockMedicine.reviews[0].rating : 0}
+                  value={medicine.rating}
                   precision={0.5}
                   readOnly
                   emptyIcon={<StarBorderIcon />}
@@ -154,32 +113,49 @@ const MedicineDetails = () => {
                   sx={{ mr: 1 }}
                 />
                 <Typography variant="body2" color="text.secondary">
-                  ({mockMedicine.reviews.length} reviews)
+                  ({medicine.reviews} reviews)
                 </Typography>
               </Box>
               <Typography variant="h5" color="primary" gutterBottom>
-                ${mockMedicine.price.toFixed(2)}
+                ${medicine.price.toFixed(2)}
               </Typography>
               <Typography variant="body1" paragraph>
-                {mockMedicine.description}
+                {medicine.description}
               </Typography>
               <Box sx={{ mb: 2 }}>
                 <Chip
-                  label={mockMedicine.availability}
-                  color={mockMedicine.availability === 'In Stock' ? 'success' : 'error'}
+                  label={medicine.availability}
+                  color={medicine.availability === 'In Stock' ? 'success' : 'error'}
+                  sx={{ mr: 1 }}
                 />
-                {mockMedicine.prescriptionRequired && (
+                {medicine.prescriptionRequired && (
                   <Chip label="Prescription Required" color="warning" />
                 )}
               </Box>
-              <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="subtitle1" gutterBottom>
+                  Manufacturer
+                </Typography>
+                <Typography variant="body1" color="text.secondary">
+                  {medicine.manufacturer}
+                </Typography>
+              </Box>
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="subtitle1" gutterBottom>
+                  Dosage
+                </Typography>
+                <Typography variant="body1" color="text.secondary">
+                  {medicine.dosage}
+                </Typography>
+              </Box>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
                 <TextField
                   type="number"
                   label="Quantity"
                   value={quantity}
                   onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
                   inputProps={{ min: 1 }}
-                  sx={{ width: 120 }}
+                  sx={{ width: 100 }}
                 />
                 <Button
                   variant="contained"
@@ -187,8 +163,8 @@ const MedicineDetails = () => {
                   size="large"
                   startIcon={<CartIcon />}
                   onClick={handleAddToCart}
+                  disabled={medicine.availability !== 'In Stock'}
                   fullWidth
-                  disabled={mockMedicine.availability !== 'In Stock'}
                 >
                   Add to Cart
                 </Button>
@@ -197,94 +173,29 @@ const MedicineDetails = () => {
           </Card>
         </Grid>
 
-        {/* Usage Instructions */}
+        {/* Additional Information */}
         <Grid item xs={12}>
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>
-                Usage Instructions
+                Uses
               </Typography>
-              <Typography variant="body1" paragraph>
-                {mockMedicine.usage}
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-
-        {/* Side Effects */}
-        <Grid item xs={12} md={6}>
-          <Card>
-            <CardContent>
+              <List>
+                {medicine.uses.map((use, index) => (
+                  <ListItem key={index}>
+                    <ListItemText primary={use} />
+                  </ListItem>
+                ))}
+              </List>
+              <Divider sx={{ my: 2 }} />
               <Typography variant="h6" gutterBottom>
                 Side Effects
               </Typography>
               <List>
-                {mockMedicine.sideEffects.map((effect, index) => (
+                {medicine.sideEffects.map((effect, index) => (
                   <ListItem key={index}>
                     <ListItemText primary={effect} />
                   </ListItem>
-                ))}
-              </List>
-            </CardContent>
-          </Card>
-        </Grid>
-
-        {/* Precautions */}
-        <Grid item xs={12} md={6}>
-          <Card>
-            <CardContent>
-              <Typography variant="h6" gutterBottom>
-                Precautions
-              </Typography>
-              <List>
-                {mockMedicine.precautions.map((precaution, index) => (
-                  <ListItem key={index}>
-                    <ListItemText primary={precaution} />
-                  </ListItem>
-                ))}
-              </List>
-            </CardContent>
-          </Card>
-        </Grid>
-
-        {/* Reviews */}
-        <Grid item xs={12}>
-          <Card>
-            <CardContent>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                <Typography variant="h6">
-                  Reviews
-                </Typography>
-                <Button variant="outlined" onClick={() => setReviewDialogOpen(true)}>
-                  Add Review
-                </Button>
-              </Box>
-              <List>
-                {mockMedicine.reviews.map((review) => (
-                  <React.Fragment key={review.id}>
-                    <ListItem>
-                      <ListItemText
-                        primary={
-                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                            <Typography variant="subtitle1">{review.user}</Typography>
-                            <Box sx={{ display: 'flex', gap: 0.5 }}>
-                              {[...Array(5)].map((_, i) => (
-                                <Typography
-                                  key={i}
-                                  component="span"
-                                  color={i < review.rating ? 'primary' : 'text.secondary'}
-                                >
-                                  ★
-                                </Typography>
-                              ))}
-                            </Box>
-                          </Box>
-                        }
-                        secondary={review.comment}
-                      />
-                    </ListItem>
-                    <Divider />
-                  </React.Fragment>
                 ))}
               </List>
             </CardContent>
@@ -297,8 +208,9 @@ const MedicineDetails = () => {
         open={showSuccess}
         autoHideDuration={3000}
         onClose={() => setShowSuccess(false)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       >
-        <Alert severity="success" sx={{ width: '100%' }}>
+        <Alert onClose={() => setShowSuccess(false)} severity="success">
           Added to cart successfully!
         </Alert>
       </Snackbar>
@@ -307,9 +219,7 @@ const MedicineDetails = () => {
       <Dialog open={shareDialogOpen} onClose={() => setShareDialogOpen(false)}>
         <DialogTitle>Share Medicine</DialogTitle>
         <DialogContent>
-          <Typography>
-            Share this medicine information with others:
-          </Typography>
+          <Typography>Share this medicine information with others:</Typography>
           <Box sx={{ mt: 2 }}>
             <Button
               variant="outlined"
@@ -347,49 +257,6 @@ const MedicineDetails = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setShareDialogOpen(false)}>Close</Button>
-        </DialogActions>
-      </Dialog>
-
-      {/* Review Dialog */}
-      <Dialog open={reviewDialogOpen} onClose={() => setReviewDialogOpen(false)}>
-        <DialogTitle>Add Review</DialogTitle>
-        <DialogContent>
-          <Box sx={{ mt: 2 }}>
-            <Typography gutterBottom>Rating</Typography>
-            <Box sx={{ display: 'flex', gap: 1, mb: 2 }}>
-              {[1, 2, 3, 4, 5].map((star) => (
-                <IconButton
-                  key={star}
-                  onClick={() => setNewReview({ ...newReview, rating: star })}
-                >
-                  <Typography
-                    component="span"
-                    color={star <= newReview.rating ? 'primary' : 'text.secondary'}
-                  >
-                    ★
-                  </Typography>
-                </IconButton>
-              ))}
-            </Box>
-            <TextField
-              fullWidth
-              multiline
-              rows={4}
-              label="Your Review"
-              value={newReview.comment}
-              onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
-            />
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setReviewDialogOpen(false)}>Cancel</Button>
-          <Button
-            variant="contained"
-            onClick={handleAddReview}
-            disabled={!newReview.comment.trim()}
-          >
-            Submit Review
-          </Button>
         </DialogActions>
       </Dialog>
     </Container>
