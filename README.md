@@ -1,5 +1,7 @@
 # HealthCare Hub - Hospital Management System
 
+live demo : https://hospital-management-o78t7h5m1-tanmay-jadhavs-projects.vercel.app
+
 A comprehensive healthcare management system built with React and Material-UI that provides information about medicines, diseases, and healthcare services. This system serves as a one-stop solution for both healthcare providers and patients, offering features for medicine management, disease information, and patient care.
 
 ## 🌟 Key Features
